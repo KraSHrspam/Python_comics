@@ -12,7 +12,7 @@ ACCESS_TOKEN=vk1.a.7unSSs4Mu982Hsaa_Po20ss0daIumPfEafsC4jQslMOOgYMHbIr9Q25byloek
 >**Не забудьте сахронить `.env`**
 
 ### Запуск!
--Надо установить зависимости из файла `requirements.txt` с помощью команды:
+- Надо установить зависимости из файла `requirements.txt` с помощью команды:
 ```
 pip install -r requirements.txt
 ```
