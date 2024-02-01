@@ -5,7 +5,6 @@ import requests
 import random
 import os
 
-load_dotenv()
 _ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 
 def download_comic():
@@ -88,6 +87,7 @@ def publishing_comic_on_wall(authors_comment, filename, photo, owner_id, photo_i
     response.raise_for_status()
 
 if __name__ == '__main__':
+    load_dotenv()
     try:
         load_dotenv()
         authors_comment, filename = download_comic()
