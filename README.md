@@ -22,9 +22,11 @@ pip install -r requirements.txt
 Для работы кода вам нужно создать файл `.env` с вашим `ID`  и `Access_token` `ом. <br> Файлик должен выглядеть примерно так:
 ```
 CLIENT_ID=1337228
+VK_GROUP_ID=133799408
 ACCESS_TOKEN=vk1.a.7unSSs4Mu982Hsaa_Po20ss0daIumPfEafsC4jQslMOOgYMHbIr9Q25byloekgE7yrwL3bB-bu2ka18VIIKa801Kvc9iif3ETOds_g
 ```
 - `CLIENT_ID` - Вы сможете найти в **[Приложениях](https://dev.vk.com/ru)**, если быть точнее то во вкладке `Настройки` <br>
+- `VK_GROUP_ID` - Вы найдете в вашей группе в **поисковой строке**. К примеру`https://vk.com/clubXXXXXXXXX`, X - ваше айди группы.
 - `ACCESS_TOKEN` - Вы получите с помощью копошения в Адресной строке, надо будет просто подставить свои данные в **[уже готовую ссылку](https://dev.vk.com/ru/api/access-token/implicit-flow-user)** <br>
 >**Не забудьте сохранить `.env`**
 
