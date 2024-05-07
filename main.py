@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-from pprint import pprint
 from PIL import Image
 import requests
 import random
@@ -20,17 +19,6 @@ def download_comic():
         file.write(image.content)
     authors_comment = response_json['alt']
     return authors_comment, filename
-
-
-# def get_groups_id():
-#     params = {
-#         'access_token': access_token,
-#         'v': '5.131', 
-#         'filter': 'admin'
-#     }
-#     response = requests.get(f'https://api.vk.com/method/groups.get', params=params)
-#     response.raise_for_status
-#     return group_id
 
 
 def get_servers_address(access_token):
