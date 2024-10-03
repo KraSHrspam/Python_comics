@@ -9,15 +9,15 @@ def download_comic():
     comic_num = random.randint(1, Num_of_all_comics)
     filename = f'random_comic_num{comic_num}.png'
     url = f'https://xkcd.com/{comic_num}/info.0.json'
-    response_json = response.json()
+    response_comics = response.json()
     response = requests.get(url)
     response.raise_for_status()
-    image_url = response_json['img']
+    image_url = response_comics['img']
     image = requests.get(image_url)
     image.raise_for_status()
     with open(filename, 'wb') as file:
         file.write(image.content)
-    authors_comment = response_json['alt']
+    authors_comment = response_comics['alt']
     return authors_comment, filename
 
 
@@ -28,8 +28,8 @@ def get_servers_address(access_token):
     }
     response = requests.get(f'https://api.vk.com/method/photos.getWallUploadServer', params=params)
     response.raise_for_status()
-    response_json = response.json()
-    upload_url = response_json['response']['upload_url']
+    response_server_addres = response.json()
+    upload_url = response_server_addres['response']['upload_url']
     return upload_url
 
 
@@ -40,10 +40,10 @@ def upload_comic_to_server(filename, server_address):
         }
         response = requests.post(server_address, files=files)
     response.raise_for_status()
-    response_json = response.json()
-    photo = response_json['photo']
-    picture_hash = response_json['hash']
-    server = response_json['server']
+    response_uploaded_comic = response.json()
+    photo = response_uploaded_comic['photo']
+    picture_hash = response_uploaded_comic['hash']
+    server = response_uploaded_comic['server']
     return server, photo, picture_hash
 
 
@@ -57,9 +57,9 @@ def save_comic_in_group_album(server, photo, picture_hash, access_token):
     }
     response = requests.post('https://api.vk.com/method/photos.saveWallPhoto', files=files)
     response.raise_for_status()
-    response_json = response.json()
-    owner_id = response_json['response'][0]['owner_id']
-    photo_id = response_json['response'][0]['id']
+    response_saved_comic = response.json()
+    owner_id = response_saved_comic['response'][0]['owner_id']
+    photo_id = response_saved_comic['response'][0]['id']
     return owner_id, photo_id
 
 
