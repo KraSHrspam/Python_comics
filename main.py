@@ -1,8 +1,9 @@
+import random
+import os
+
 from dotenv import load_dotenv
 from PIL import Image
 import requests
-import random
-import os
 
 
 def download_comic(comics_amount):
@@ -28,7 +29,7 @@ def get_servers_address(access_token):
         'access_token': access_token,
         'v': '5.131', 
     }
-    response = requests.get(f'https://api.vk.com/method/photos.getWallUploadServer', params=params)
+    response = requests.get('https://api.vk.com/method/photos.getWallUploadServer', params=params)
     response.raise_for_status()
     response_server_addres = response.json()
     print(response_server_addres)
@@ -52,11 +53,11 @@ def upload_comic_to_server(filename, server_address):
 
 def save_comic_in_group_album(server, photo, picture_hash, access_token):
     files = {
-    'access_token': access_token,
-    'photo': photo,
-    'server': server,
-    'hash': picture_hash,
-    'v': '5.131'
+        'access_token': access_token,
+        'photo': photo,
+        'server': server,
+        'hash': picture_hash,
+        'v': '5.131'
     }
     response = requests.post('https://api.vk.com/method/photos.saveWallPhoto', files=files)
     response.raise_for_status()
@@ -68,16 +69,17 @@ def save_comic_in_group_album(server, photo, picture_hash, access_token):
 
 def publish_comic_on_wall(authors_comment, filename, photo, owner_id, photo_id, group_id, access_token):
     files = {
-    'access_token': access_token,
-    'attachments': f'photo{owner_id}_{photo_id}',
-    'message': authors_comment,
-    'v': '5.131',
-    'from_group': '1',
-    'group_id': group_id,
-    'owner_id': f'-{group_id}',
+        'access_token': access_token,
+        'attachments': f'photo{owner_id}_{photo_id}',
+        'message': authors_comment,
+        'v': '5.131',
+        'from_group': '1',
+        'group_id': group_id,
+        'owner_id': f'-{group_id}',
     }
     response = requests.post('https://api.vk.com/method/wall.post', files=files)
     response.raise_for_status()
+
 
 def main():
     load_dotenv()
@@ -89,13 +91,13 @@ def main():
     comics_amount = response.json()['num']
     try:
         authors_comment, filename = download_comic(comics_amount)
-        client_id = os.environ['VK_CLIENT_ID']
         server_address = get_servers_address(access_token)
         server, photo, picture_hash = upload_comic_to_server(filename, server_address)
         owner_id, photo_id = save_comic_in_group_album(server, photo, picture_hash, access_token)
         publish_comic_on_wall(authors_comment, filename, photo, owner_id, photo_id, group_id, access_token)
     finally:
         os.remove(filename)
+
 
 if __name__ == '__main__':
     main()
