@@ -38,7 +38,7 @@ def get_servers_address(access_token):
 
 
 def upload_comic_to_server(filename, server_address):
-    with open(filename, "rb") as file:
+    with open(filename, 'rb') as file:
         files = {
             'photo': file,
         }
