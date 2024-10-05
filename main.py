@@ -5,8 +5,8 @@ import random
 import os
 
 
-def download_comic(num_of_all_comics):
-    comic_num = random.randint(1, num_of_all_comics)
+def download_comic(comics_amount):
+    comic_num = random.randint(1, comics_amount)
     filename = f'random_comic_num{comic_num}.png'
     url = f'https://xkcd.com/{comic_num}/info.0.json'
 
@@ -86,9 +86,9 @@ def main():
     url = 'https://xkcd.com/info.0.json'
     response = requests.get(url)
     response.raise_for_status()
-    num_of_all_comics = response.json()['num']
+    comics_amount = response.json()['num']
     try:
-        authors_comment, filename = download_comic(num_of_all_comics)
+        authors_comment, filename = download_comic(comics_amount)
         client_id = os.environ['VK_CLIENT_ID']
         server_address = get_servers_address(access_token)
         server, photo, picture_hash = upload_comic_to_server(filename, server_address)
